@@ -1,0 +1,135 @@
+.hero {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--header-height);
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.greeting {
+  color: var(--accent-primary);
+  font-weight: 600;
+  font-size: 1.125rem;
+  font-family: var(--font-heading);
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.hero-text h1 {
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  margin-bottom: 1.5rem;
+}
+
+.hero-text h1 span {
+  color: var(--accent-secondary);
+}
+
+.hero-text p {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+}
+
+.stat-chips {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.stat-chips span {
+  padding: 0.375rem 1rem;
+  background: var(--surface-alt);
+  border-radius: 20px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid rgba(47, 42, 36, 0.08);
+}
+
+.cta-group {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: white;
+  box-shadow: 0 4px 14px rgba(212, 140, 112, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 140, 112, 0.6);
+}
+
+.hero-image {
+  flex: 1;
+  position: relative;
+  will-change: transform;
+}
+
+.image-wrapper {
+  position: relative;
+  z-index: 1;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.image-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
+  z-index: 2;
+}
+
+.hero-image::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  right: -10%;
+  bottom: -10%;
+  background: var(--surface-alt);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  z-index: 0;
+  animation: shapeShift 8s ease-in-out infinite alternate;
+  will-change: border-radius;
+}
+
+@keyframes shapeShift {
+  0% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-content {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding-top: 2rem;
+  }
+
+  .hero-text p {
+    margin: 0 auto 2.5rem;
+  }
+
+  .cta-group {
+    justify-content: center;
+  }
+}
