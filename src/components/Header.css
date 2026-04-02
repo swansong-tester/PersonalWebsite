@@ -4,12 +4,17 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  transition: padding var(--transition), background-color var(--transition), backdrop-filter var(--transition), box-shadow var(--transition);
-  padding: 1.5rem 0;
+  padding: 1.25rem 0;
+  transition: padding var(--transition), background-color var(--transition), border-color var(--transition), backdrop-filter var(--transition);
+  border-bottom: 1px solid transparent;
 }
 
 .header.scrolled {
   padding: 0.75rem 0;
+  background: rgba(9, 9, 11, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: var(--border);
 }
 
 .nav-container {
@@ -20,12 +25,16 @@
 
 .logo {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.375rem;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .logo span {
-  color: var(--accent-primary);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .desktop-nav {
@@ -35,8 +44,15 @@
 }
 
 .desktop-nav a {
+  font-size: 0.9rem;
   font-weight: 500;
+  color: var(--text-muted);
   position: relative;
+  transition: color var(--transition);
+}
+
+.desktop-nav a:hover {
+  color: var(--text-main);
 }
 
 .desktop-nav a::after {
@@ -45,8 +61,8 @@
   bottom: -4px;
   left: 0;
   width: 0;
-  height: 2px;
-  background-color: var(--accent-primary);
+  height: 1px;
+  background: var(--accent-gradient);
   transition: width var(--transition);
 }
 
@@ -56,6 +72,7 @@
 
 .mobile-toggle {
   display: none;
+  color: var(--text-main);
 }
 
 @media (max-width: 768px) {
@@ -69,10 +86,10 @@
     left: 0;
     right: 0;
     background: var(--surface-color);
+    border-bottom: 1px solid var(--border);
     flex-direction: column;
     gap: 0;
-    padding: 2rem;
-    box-shadow: var(--shadow-md);
+    padding: 1.5rem 2rem;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);
@@ -88,6 +105,7 @@
   }
 
   .desktop-nav a {
-    margin: 1rem 0;
+    margin: 0.875rem 0;
+    font-size: 1rem;
   }
 }

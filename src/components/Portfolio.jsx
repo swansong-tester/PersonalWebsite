@@ -53,7 +53,10 @@ export default function Portfolio() {
   return (
     <section ref={sectionRef} id="portfolio" className="portfolio">
       <div className="container">
-        <h2 className={`section-title reveal ${inView ? 'revealed' : ''}`}>Selected Work</h2>
+        <h2 className={`section-title reveal ${inView ? 'revealed' : ''}`}>
+          <span className="label">// portfolio</span>
+          Selected Work
+        </h2>
 
         <div
           className={`filter-controls reveal ${inView ? 'revealed' : ''}`}

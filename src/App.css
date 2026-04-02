@@ -8,7 +8,7 @@ main {
   flex-grow: 1;
 }
 
-/* Common Container */
+/* Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -17,27 +17,38 @@ main {
 
 /* Sections */
 section {
-  padding: 6rem 0;
+  padding: 7rem 0;
 }
 
+/* Section title */
 .section-title {
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   margin-bottom: 3rem;
   text-align: center;
-  position: relative;
   display: block;
+  position: relative;
+  letter-spacing: -0.02em;
+}
+
+.section-title .label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
 }
 
 .section-title::after {
   content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 3px;
-  background-color: var(--accent-primary);
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--accent-gradient);
   border-radius: 2px;
+  margin: 0.9rem auto 0;
 }
 
 /* Shared Button Styles */
@@ -45,20 +56,23 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.8rem;
-  border-radius: 30px;
-  font-weight: 500;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
   font-family: var(--font-heading);
   text-decoration: none;
   transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition), color var(--transition);
 }
 
 .btn-outline {
-  border: 2px solid var(--text-main);
+  border: 1px solid var(--border-accent);
+  color: var(--text-main);
+  background: transparent;
 }
 
 .btn-outline:hover {
-  background-color: var(--text-main);
-  color: var(--bg-color);
+  background: rgba(99, 102, 241, 0.1);
+  border-color: var(--accent-primary);
   transform: translateY(-2px);
 }

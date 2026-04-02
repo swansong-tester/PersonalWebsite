@@ -24,7 +24,10 @@ export default function Blog() {
   return (
     <section id="blog" className="blog">
       <div className="container">
-        <h2 className="section-title" data-reveal>Latest Thoughts</h2>
+        <h2 className="section-title" data-reveal>
+          <span className="label">// writing</span>
+          Latest Thoughts
+        </h2>
 
         <div className="blog-list">
           {posts.map((post, i) => (
