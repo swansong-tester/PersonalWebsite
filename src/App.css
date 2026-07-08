@@ -34,7 +34,7 @@ section {
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 50%;
+  width: 56px;
   height: 3px;
   background-color: var(--accent-primary);
   border-radius: 2px;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { site, nav } from '../data/site';
 import './Header.css';
 
 export default function Header() {
@@ -17,16 +18,27 @@ export default function Header() {
   return (
     <header className={`header ${isScrolled ? 'scrolled glass' : ''}`}>
       <div className="container nav-container">
-        <a href="#" className="logo">Mark<span>.</span></a>
-        
-        <nav className={`desktop-nav ${isMobileMenuOpen ? 'open' : ''}`}>
-          <a href="#hero" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
-          <a href="#portfolio" onClick={() => setIsMobileMenuOpen(false)}>Portfolio</a>
-          <a href="#blog" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
-          <a href="#footer" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+        <a href="#hero" className="logo">{site.name}<span>.</span></a>
+
+        <nav
+          id="primary-nav"
+          aria-label="Primary"
+          className={`desktop-nav ${isMobileMenuOpen ? 'open' : ''}`}
+        >
+          {nav.map(({ label, href }) => (
+            <a key={href} href={href} onClick={() => setIsMobileMenuOpen(false)}>
+              {label}
+            </a>
+          ))}
         </nav>
 
-        <button className="mobile-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+        <button
+          className="mobile-toggle"
+          aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="primary-nav"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>

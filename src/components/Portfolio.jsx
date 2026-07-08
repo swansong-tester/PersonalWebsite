@@ -1,50 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { ExternalLink, PlaySquare } from 'lucide-react';
+import useReveal from '../hooks/useReveal';
+import { projects } from '../data/site';
 import './Portfolio.css';
 
-const projects = [
-  {
-    id: 1,
-    title: 'Focus Timer App',
-    category: 'Apps',
-    image: '/portfolio_project1_1774731448878.png',
-    tech: ['React Native', 'TypeScript'],
-    featured: true,
-  },
-  {
-    id: 2,
-    title: 'Abstract Concept Art',
-    category: 'Images',
-    image: '/portfolio_project2_1774731461653.png',
-    tech: ['Blender', 'Figma'],
-  },
-  {
-    id: 3,
-    title: 'Cinematic Reel 2025',
-    category: 'Videos',
-    image: '/portfolio_project1_1774731448878.png',
-    tech: ['Premiere Pro', 'After Effects'],
-  }
-];
+const categories = ['All', ...new Set(projects.map(p => p.category))];
 
 export default function Portfolio() {
   const [filter, setFilter] = useState('All');
-  const [inView, setInView] = useState(false);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.08 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const [sectionRef, inView] = useReveal(0.08);
 
   const filteredProjects = filter === 'All'
     ? projects
@@ -59,10 +23,11 @@ export default function Portfolio() {
           className={`filter-controls reveal ${inView ? 'revealed' : ''}`}
           style={{ transitionDelay: inView ? '120ms' : '0ms' }}
         >
-          {['All', 'Apps', 'Images', 'Videos'].map(cat => (
+          {categories.map(cat => (
             <button
               key={cat}
               className={`filter-btn ${filter === cat ? 'active' : ''}`}
+              aria-pressed={filter === cat}
               onClick={() => setFilter(cat)}
             >
               {cat}
@@ -71,27 +36,42 @@ export default function Portfolio() {
         </div>
 
         <div className="portfolio-grid">
-          {filteredProjects.map((project, i) => (
-            <div
-              key={`${filter}-${project.id}`}
-              className={`project-card ${project.featured ? 'featured' : ''} ${inView ? 'animate' : ''}`}
-              style={{ '--card-delay': `${240 + i * 120}ms` }}
-            >
-              <div className="card-image">
-                <img src={project.image} alt={project.title} loading="lazy" />
-                <div className="overlay">
-                  {project.category === 'Videos' ? <PlaySquare size={32} /> : <ExternalLink size={32} />}
+          {filteredProjects.map((project, i) => {
+            const icon = project.category === 'Videos'
+              ? <PlaySquare size={32} />
+              : <ExternalLink size={32} />;
+            return (
+              <div
+                key={`${filter}-${project.id}`}
+                className={`project-card ${project.featured ? 'featured' : ''} ${inView ? 'animate' : ''}`}
+                style={{ '--card-delay': `${240 + i * 120}ms` }}
+              >
+                <div className="card-image">
+                  <img src={project.image} alt={project.title} loading="lazy" />
+                  {project.url ? (
+                    <a
+                      className="overlay"
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View ${project.title}`}
+                    >
+                      {icon}
+                    </a>
+                  ) : (
+                    <div className="overlay">{icon}</div>
+                  )}
+                </div>
+                <div className="card-content">
+                  <span className="category">{project.category}</span>
+                  <h3>{project.title}</h3>
+                  <div className="tags">
+                    {project.tech.map(t => <span key={t}>{t}</span>)}
+                  </div>
                 </div>
               </div>
-              <div className="card-content">
-                <span className="category">{project.category}</span>
-                <h3>{project.title}</h3>
-                <div className="tags">
-                  {project.tech.map(t => <span key={t}>{t}</span>)}
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

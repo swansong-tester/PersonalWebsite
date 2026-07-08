@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+/* Fonts (Outfit + Inter) are loaded via <link> in index.html */
 
 :root {
   /* Nature Distilled Palette - Warm, Earthy Tones */
@@ -69,15 +69,13 @@ img {
   display: block;
 }
 
-/* Scroll reveal */
-[data-reveal],
+/* Scroll reveal (driven by the useReveal hook) */
 .reveal {
   opacity: 0;
   transform: translateY(32px);
   transition: opacity 0.65s ease, transform 0.65s ease;
 }
 
-[data-reveal].revealed,
 .reveal.revealed {
   opacity: 1;
   transform: none;
@@ -109,4 +107,19 @@ img {
 
 .animate-float {
   animation: float 4s ease-in-out infinite;
+}
+
+/* Respect users who prefer reduced motion: content appears immediately.
+   Delay resets matter — cardReveal uses animation-fill-mode: both with a
+   per-card delay, which would otherwise leave cards briefly invisible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
 }

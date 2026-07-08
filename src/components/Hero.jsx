@@ -1,19 +1,25 @@
 import { ArrowRight } from 'lucide-react';
+import { hero } from '../data/site';
 import './Hero.css';
+
+// Words wrapped in {braces} in the data file render as accent <span>s.
+function renderHeadline(text) {
+  return text.split(/(\{[^}]+\})/).map((part, i) =>
+    part.startsWith('{') ? <span key={i}>{part.slice(1, -1)}</span> : part
+  );
+}
 
 export default function Hero() {
   return (
     <section id="hero" className="hero">
       <div className="container hero-content">
         <div className="hero-text animate-fade-in">
-          <span className="greeting">Hi, I'm Mark 👋</span>
-          <h1>Designing digital <span>experiences</span> with a human touch.</h1>
-          <p>I build intuitive apps, write about modern web development, and capture the world through a lens.</p>
+          <span className="greeting">{hero.greeting}</span>
+          <h1>{renderHeadline(hero.headline)}</h1>
+          <p>{hero.subhead}</p>
 
           <div className="stat-chips">
-            <span>5+ yrs experience</span>
-            <span>30+ projects shipped</span>
-            <span>React · Figma · iOS</span>
+            {hero.stats.map(stat => <span key={stat}>{stat}</span>)}
           </div>
 
           <div className="cta-group">
@@ -23,10 +29,10 @@ export default function Hero() {
             <a href="#blog" className="btn btn-outline">Read Blog</a>
           </div>
         </div>
-        
+
         <div className="hero-image animate-float">
           <div className="image-wrapper">
-             <img src="/profile_picture_1774731436010.png" alt="Mark Portrait" fetchPriority="high" />
+             <img src={hero.portrait.src} alt={hero.portrait.alt} fetchPriority="high" />
           </div>
         </div>
       </div>
