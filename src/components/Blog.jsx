@@ -1,38 +1,13 @@
-import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import useReveal from '../hooks/useReveal';
-import { posts, blogIndexUrl } from '../data/site';
+import { posts } from '../lib/posts';
+import BlogCard from './BlogCard';
 import './Blog.css';
 
-function BlogCard({ post, index }) {
-  const [ref, inView] = useReveal();
-
-  return (
-    <article
-      ref={ref}
-      className={`blog-card reveal ${inView ? 'revealed' : ''}`}
-      style={{ transitionDelay: inView ? `${index * 150}ms` : '0ms' }}
-    >
-      <div className="blog-image">
-        <img src={post.image} alt={post.title} loading="lazy" />
-      </div>
-      <div className="blog-content">
-        <div className="meta">
-          <span>{post.date}</span> • <span>{post.readTime}</span>
-        </div>
-        <h3>{post.title}</h3>
-        <p>{post.excerpt}</p>
-        {post.url && (
-          <a href={post.url} className="read-more">
-            Read Article <ArrowRight size={16} />
-          </a>
-        )}
-      </div>
-    </article>
-  );
-}
-
+// Home-page teaser: shows the most recent posts, links to the full index.
 export default function Blog() {
   const [titleRef, titleInView] = useReveal();
+  const latest = posts.slice(0, 2);
 
   return (
     <section id="blog" className="blog">
@@ -42,16 +17,14 @@ export default function Blog() {
         </h2>
 
         <div className="blog-list">
-          {posts.map((post, i) => (
-            <BlogCard key={post.id} post={post} index={i} />
+          {latest.map((post, i) => (
+            <BlogCard key={post.slug} post={post} index={i} />
           ))}
         </div>
 
-        {blogIndexUrl && (
-          <div className="view-all">
-            <a href={blogIndexUrl} className="btn btn-outline">View All Posts</a>
-          </div>
-        )}
+        <div className="view-all">
+          <Link to="/blog" className="btn btn-outline">View All Posts</Link>
+        </div>
       </div>
     </section>
   );

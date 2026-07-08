@@ -55,6 +55,10 @@
   margin-bottom: 1rem;
 }
 
+.blog-content h3 a:hover {
+  color: var(--accent-primary);
+}
+
 .blog-content p {
   color: var(--text-muted);
   margin-bottom: 1.5rem;

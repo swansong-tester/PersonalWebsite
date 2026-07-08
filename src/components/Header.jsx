@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { site, nav } from '../data/site';
 import './Header.css';
@@ -18,17 +19,17 @@ export default function Header() {
   return (
     <header className={`header ${isScrolled ? 'scrolled glass' : ''}`}>
       <div className="container nav-container">
-        <a href="#hero" className="logo">{site.name}<span>.</span></a>
+        <Link to="/" className="logo">{site.name}<span>.</span></Link>
 
         <nav
           id="primary-nav"
           aria-label="Primary"
           className={`desktop-nav ${isMobileMenuOpen ? 'open' : ''}`}
         >
-          {nav.map(({ label, href }) => (
-            <a key={href} href={href} onClick={() => setIsMobileMenuOpen(false)}>
+          {nav.map(({ label, to }) => (
+            <Link key={to} to={to} onClick={() => setIsMobileMenuOpen(false)}>
               {label}
-            </a>
+            </Link>
           ))}
         </nav>
 

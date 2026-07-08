@@ -10,11 +10,12 @@ export const site = {
   email: 'hello@example.com', // TODO: replace with your real email
 };
 
+// Hash targets (e.g. /#portfolio) scroll to that section of the home page.
 export const nav = [
-  { label: 'Home', href: '#hero' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'Contact', href: '#footer' },
+  { label: 'Home', to: '/' },
+  { label: 'Portfolio', to: '/#portfolio' },
+  { label: 'Blog', to: '/blog' },
+  { label: 'Contact', to: '/#footer' },
 ];
 
 export const hero = {
@@ -58,32 +59,7 @@ export const projects = [
   },
 ];
 
-// Set `url` on a post to show its "Read Article" link.
-export const posts = [
-  {
-    id: 1,
-    title: 'The Future of Web Design in 2026',
-    date: 'Mar 15, 2026',
-    readTime: '5 min read',
-    excerpt:
-      'Exploring how tactile maximalism and organic geometries are taking over the web landscape.',
-    image: '/blog_thumbnail_1774731483174.png',
-    url: null, // TODO: add article URL
-  },
-  {
-    id: 2,
-    title: 'Why React Native Still Rocks',
-    date: 'Feb 28, 2026',
-    readTime: '7 min read',
-    excerpt:
-      'A deep dive into cross-platform development patterns that boost productivity.',
-    image: '/portfolio_project2_1774731461653.png',
-    url: null, // TODO: add article URL
-  },
-];
-
-// Link for the "View All Posts" button; the button is hidden while null.
-export const blogIndexUrl = null; // TODO: add blog index URL
+// Blog posts live as markdown files in src/content/posts/ — see README.
 
 // Socials with a null url are hidden until you fill them in.
 export const socials = [
