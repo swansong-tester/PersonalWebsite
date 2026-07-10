@@ -3,7 +3,7 @@ title: The Future of Web Design in 2026
 date: Mar 15, 2026
 readTime: 5 min read
 excerpt: Exploring how tactile maximalism and organic geometries are taking over the web landscape.
-image: /blog_thumbnail_1774731483174.png
+image: /blog-web-design.png
 ---
 
 For most of the last decade, the web converged on the same look: white cards, gray borders, a single sans-serif, and a splash of brand color. It was clean, it was safe, and by 2024 it was everywhere. The interesting thing about 2026 is watching that consensus crack.

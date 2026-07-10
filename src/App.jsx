@@ -5,7 +5,6 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import BlogIndex from './pages/BlogIndex';
 import BlogPost from './pages/BlogPost';
-import './App.css';
 
 // Scrolls to the #hash target after navigation, or to the top on page change.
 function ScrollManager() {
@@ -15,7 +14,7 @@ function ScrollManager() {
     if (hash) {
       const el = document.querySelector(hash);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+        el.scrollIntoView();
         return;
       }
     }
@@ -25,9 +24,13 @@ function ScrollManager() {
   return null;
 }
 
+// BASE_URL is '/PersonalWebsite/' in production (GitHub Pages subpath);
+// the router wants it without the trailing slash.
+const basename = import.meta.env.BASE_URL.replace(/\/+$/, '') || '/';
+
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <ScrollManager />
       <div className="app">
         <Header />

@@ -1,38 +1,24 @@
 # Personal Website
 
-A portfolio site with a hero, selected work, and a markdown-powered blog (`/blog` index + article pages), plus a contact footer.
+A minimal personal site: short intro, work list, and a markdown-powered blog (`/blog` index + article pages), with a contact footer.
 
-**Stack:** React 19 + Vite 8, `react-router-dom` for routing, `marked` for rendering blog markdown, plain CSS with design tokens (no CSS framework). Icons from `lucide-react` and `react-icons`.
+**Stack:** React 19 + Vite 8, `react-router-dom` for routing, `marked` for rendering blog markdown. Plain CSS — one stylesheet, system fonts, no CSS framework, no icon libraries, no external requests.
 
 ## Development
 
 ```bash
 npm install      # install dependencies
-npm run dev      # dev server at http://localhost:5173
+npm run dev      # dev server at http://localhost:5173/PersonalWebsite/
 npm run build    # production build → dist/
-npm run preview  # serve the production build at http://localhost:4173
+npm run preview  # serve the production build at http://localhost:4173/PersonalWebsite/
 npm run lint     # eslint
 ```
 
+Note the `/PersonalWebsite/` in local URLs — the site is built for GitHub Pages, which serves it from that subpath, and dev/preview mirror it so path bugs show up locally.
+
 ## Updating content
 
-**Site text, projects, and links live in one file: [`src/data/site.js`](src/data/site.js). Blog posts are markdown files in [`src/content/posts/`](src/content/posts/).** You should never need to touch the components to change content.
-
-### Add a portfolio project
-
-Drop the image into `public/`, then append to the `projects` array:
-
-```js
-{
-  id: 4,
-  title: 'My New Project',
-  category: 'Apps',            // a new category automatically gets its own filter button
-  image: '/my-new-project.png',
-  tech: ['Swift', 'SwiftUI'],
-  featured: false,             // true = full-width featured card
-  url: 'https://example.com',  // makes the card's hover overlay a link; null = not clickable
-},
-```
+**Site text, the work list, and links live in one file: [`src/data/site.js`](src/data/site.js). Blog posts are markdown files in [`src/content/posts/`](src/content/posts/).** You should never need to touch the components to change content.
 
 ### Add a blog post
 
@@ -43,42 +29,46 @@ Create a markdown file in `src/content/posts/` — the filename becomes the URL 
 title: My New Post
 date: Apr 2, 2026
 readTime: 4 min read
-excerpt: One-sentence teaser shown on the card.
-image: /my-post-thumbnail.png
+image: /my-photo.png
 ---
 
 Write the article here in **markdown** — headings, lists, links,
-code blocks, and quotes are all styled.
+images, code blocks, and quotes are all styled.
 ```
 
-That's it. The post automatically appears on the `/blog` index and (if it's one of the two newest) in the home-page "Latest Thoughts" section. Posts are sorted newest-first by `date`.
+The post appears automatically on the `/blog` index and (if it's one of the three newest) in the home page's Writing list. Posts sort newest-first by `date`. The `image` field is optional — it renders as the article's header image.
 
-### Edit hero text
+### Add pictures
 
-Edit the `hero` object. In `headline`, wrap words in `{braces}` to give them the accent highlight:
+Drop the image file in `public/`, then reference it as `/my-photo.png` — in a post's `image:` frontmatter or inline in the article body with `![caption](/my-photo.png)`. The deploy subpath is handled automatically. Tip: resize photos to ≤1200px wide before adding them so pages stay fast.
+
+### Add work / link videos
+
+Append to the `projects` array in `src/data/site.js`:
 
 ```js
-headline: 'Designing digital {experiences} with a human touch.',
+{
+  title: 'My Short Film',
+  category: 'Video',
+  description: 'One line about it.',
+  url: 'https://youtube.com/watch?v=...', // any link: YouTube, App Store, a gallery. null = no link
+},
 ```
 
 ### Links and email
 
-Fill in the `url` fields in `socials` and the `email` in `site`. **Anything left as `null` is hidden from the page** (no dead links) — filling in a URL makes the icon/link appear.
+Fill in the `url` fields in `socials` and the `email` in `site`. **Anything left as `null` is hidden from the page** (no dead links).
 
-## Design tokens
+## Design
 
-Colors, fonts, radii, shadows, and transitions are CSS custom properties in the `:root` block of [`src/index.css`](src/index.css). Change the palette or fonts there and the whole site follows. (Font files themselves are loaded via the Google Fonts `<link>` in `index.html`.)
-
-Shared layout utilities (`.container`, `.btn`, `.section-title`) live in `src/App.css`. Each component has a co-located stylesheet in `src/components/`.
+All styling is in [`src/index.css`](src/index.css): design tokens at the top (colors for light **and** dark mode — the site follows the visitor's system preference), then base styles and per-section rules. System font stack, one accent color used for links only, no animations.
 
 ## Deploying
 
-`npm run build` produces a fully static site in `dist/` — host it anywhere. Because the site uses client-side routing, the host must serve `index.html` for unknown paths (an "SPA fallback") so deep links like `/blog/my-post` work:
+Deployment is automatic: every push to `master` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds the site and publishes it to **GitHub Pages** at:
 
-- **Netlify:** build command `npm run build`, publish directory `dist`; add a `public/_redirects` file containing `/* /index.html 200`
-- **Vercel:** auto-detects Vite and handles the SPA fallback; defaults work
-- **GitHub Pages:** no native SPA fallback — copy `index.html` to `404.html` in `dist/` after building (and set `base` in `vite.config.js` if serving from a subpath)
+**https://swansong-tester.github.io/PersonalWebsite/**
 
-## Future work
+One-time setup: in the repo on GitHub, go to **Settings → Pages** and set **Source** to **"GitHub Actions"**. (Until this is done, the workflow's deploy step will fail — that's expected.)
 
-- Dark mode (the token system in `index.css` makes this straightforward)
+If you rename the repo or add a custom domain, update `base` in [`vite.config.js`](vite.config.js) (use `'/'` for a custom domain or user site).

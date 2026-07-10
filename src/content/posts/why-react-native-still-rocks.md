@@ -3,7 +3,7 @@ title: Why React Native Still Rocks
 date: Feb 28, 2026
 readTime: 7 min read
 excerpt: A deep dive into cross-platform development patterns that boost productivity.
-image: /portfolio_project2_1774731461653.png
+image: /blog-react-native.png
 ---
 
 Every year someone writes the "React Native is dead" post, and every year I ship another app with it. After a decade of the framework existing and several years of me betting client work on it, it's worth being specific about why it keeps winning projects it supposedly shouldn't.
