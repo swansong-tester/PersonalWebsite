@@ -41,7 +41,7 @@ export const projects = [
 
 // Socials with a null url are hidden until you fill them in.
 export const socials = [
-  { label: 'LinkedIn', url: null }, // TODO
+  { label: 'LinkedIn', url: 'https://www.linkedin.com/in/mark-swanson-4630494' },
   { label: 'YouTube', url: null }, // TODO
   { label: 'Instagram', url: null }, // TODO
 ];
